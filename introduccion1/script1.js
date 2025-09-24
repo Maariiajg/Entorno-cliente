@@ -75,3 +75,73 @@ function contar_y_temporizar(){
     console.log("Valor: " + valor);
     console.log("Ha tardado: " + (endTime -initTime)/1000 + " segundos");
 }
+
+
+// 13. Muestra el siguiente error por pantalla “Error!. No se ha encontrado ningún valor”.
+function validar(){
+    console.error("Error!. No se ha encontrado ningún valor");
+}
+// 14. Realiza un ejercicio que al pulsar un botón llamado Eliminar pinte un mensaje de
+// confirmación para asegurarse que el usuario está seguro de su acción.
+function eliminar(){
+    let eliminar = confirm("Deseas eliminar?");
+    if(eliminar == true){
+        console.log("ELIMINADO");    
+    }
+}
+// 15. Realiza un programa en JavaScript que realice lo siguiente.
+// a. Pida el nombre de usuario y este debe introducir su nombre
+// b. Le pregunte al usuario si quiere abandonar el programa y este deberá
+// Aceptar o Cancelar
+// c. Lance una alerta con la decisión del usuario
+// d. Muestre por consola “FIN DEL PROGRAMA”, en negrita subrayado y de
+// color azul.
+function pedir_datos(){
+    let seguir = true;
+    while(seguir){
+        let nombre = prompt("Introduce tu nombre: ");
+        console.log("Hola " + nombre);
+        seguir = confirm("Desea continuar en el programa?");
+        console.log("Has decidido seguir? " + seguir);
+    }
+
+    console.log("FIN DEL PROGRAMA");
+    
+}
+// 16. Realiza un programa que pida por pantalla tu edad, tu nombre, tu ciudad, tu
+// dirección y tu teléfono y que al finalizar muestre un alerta dándote la enhorabuena si
+// la edad de tu cumpleaños elevado a 5 es igual a tu número de teléfono o si
+// simplemente tu ciudad es “Mairena del Alcor”. (Tipo formulario).
+function pedir_muchos_datos(){
+    let edad = document.getElementById("edad").value;
+    let nombre = document.getElementById("nombre").value;
+    let ciudad = document.getElementById("ciudad").value;
+    let direccion = document.getElementById("direccion").value;
+    let telefono = document.getElementById("telefono").value;
+
+    console.log("La informacion es: " + nombre + edad + ciudad + direccion + telefono);
+    
+    if(edad**5 === telefono || ciudad.toUpperCase() == "Mairena del alcor".toUpperCase()){
+        console.log("ENHORABUENA");
+    }else{
+        console.log("QUE PENA");
+    }
+}
+// 17. Haz un programa que dado un número de entrada cuente sus cifras y las muestre
+// por consola.
+function contar_cifras(){
+    let numero = Math.abs(prompt("dame un numero: "));
+    let cifras = 0;
+    while(numero >= 1){
+        
+        cifras ++;
+        numero = Math.floor(numero / 10);
+    }
+    console.log("Tiene " + cifras + " cifras");
+}
+// 18. Realiza un programa que dada tu edad indique si eres niño (0-16 años), joven (17-25
+// años), adulto (26 - 60 años) o senior, en adelante.
+// 19. Realiza un programa que calcule un número aleatorio entre 1 y 10 y pida intentos
+// hasta que aciertes. Al finalizar debe mostrar por pantalla el número de intentos que
+// has realizado.
+// 20. Muestra por pantalla el número de múltiplos de siete que existen entre 8 y 100
