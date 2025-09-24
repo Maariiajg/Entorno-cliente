@@ -141,7 +141,95 @@ function contar_cifras(){
 }
 // 18. Realiza un programa que dada tu edad indique si eres niño (0-16 años), joven (17-25
 // años), adulto (26 - 60 años) o senior, en adelante.
+function calcula_edad(){
+    let edad = Number(prompt("Introduce tu edad: "));
+    switch(true){
+        case edad >= 0 && edad <= 16:
+            console.log("Eres un niño");
+            break;
+        case edad > 16 && edad <= 25:
+            console.log("Eres un joven");
+            break;
+        case edad > 25 && edad <= 60:
+            console.log("Eres un adulto");
+            break;
+        case edad > 60:
+            console.log("Eres senior");
+            break;
+        default:
+            console.error("Edad introducida no valida");
+    }
+    
+}
+// ahora con formulario
+
+function calcula_edad_formulario(){
+    let edad = Number(prompt("Introduce tu edad: "));
+    switch(true){
+        case edad >= 0 && edad <= 16:
+            pintar_mensaje("Eres un niño", true);
+            break;
+        case edad > 16 && edad <= 25:
+            pintar_mensaje("Eres un joven", true);
+            break;
+        case edad > 25 && edad <= 60:
+            pintar_mensaje("Eres un adulto", true);
+            break;
+        case edad > 60:
+            pintar_mensaje("Eres senior", true);
+            break;
+        default:
+            pintar_mensaje("Edad introducida no valida", error);
+    }
+}
+
+function pintar_mensaje(mensaje, isOk){
+
+    let aviso =document.getElementsById("aviso");
+
+    aviso.textContent = mensaje;
+
+    if(isOk){
+        aviso.style.color = "green";
+    }else{
+        aviso.style.color = "red";
+    }
+
+}
 // 19. Realiza un programa que calcule un número aleatorio entre 1 y 10 y pida intentos
 // hasta que aciertes. Al finalizar debe mostrar por pantalla el número de intentos que
 // has realizado.
-// 20. Muestra por pantalla el número de múltiplos de siete que existen entre 8 y 100
+function acierta_aleatorio(){
+    const aleat = Math.floor((Math.random() * 10) + 1);
+    let intento = 0; //contador
+
+    alert("Se ha calculado un numero aleatorio, es capaz de acertarlo?")
+    
+
+    do{
+        intento++;
+        var valor_intento = Number(prompt("Intento " + intento));
+
+    }while(intento != aleat);
+
+    console.timeLog("Enhorabuena! El numero secreto era el " + aleat);
+    console.log("Has necesitado " + intento + " intentos"); 
+}
+
+// 20. Muestra por pantalla el número de múltiplos de un numero que existen entre 8 y 100
+function multiplos(){
+    let n = Number(prompt("Introduce un numero"));
+    let multiplos = 0;
+    const max = 100;
+
+    for(let i= n+1; i < max; i++){
+        if(i%n == 0){
+            multiplos++;
+            console.log("Multiplo encontrado " + i)
+        }
+    }
+
+    console.log("El numero " + n + " tiene " + multiplos + " multiplos");
+    
+}
+
