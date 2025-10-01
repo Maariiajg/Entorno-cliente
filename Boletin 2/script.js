@@ -100,3 +100,71 @@ function calcular_ec_2grado(){
         console.log("La solución de " + a + "x^2 + " + b + "x + " + c + " = 0 es (" + result1 + ", " + result2 + ")");
     }
 }
+
+function menu(){
+    let menu = 1
+    do{
+        menu = Number(prompt("Que quieres hacer?"));
+        console.log("1.Calcula el area de un triangulo");
+        console.log("2.Calcula el area de un restangulo");
+        console.log("3.Calcula el area de un círculo");
+        console.log("4.salir");
+
+        switch(menu){
+            case 1:
+                let baseT = Number(prompt("Dame la base:"));
+                let alturaT = Number(prompt("Dame la altura:"));
+
+                let areaT = (baseT * alturaT)/2;
+                console.log("El area del triángulo es: " + areaT);
+                break;
+            
+            case 2:
+                let baseR = Number(prompt("Dame la base:"));
+                let alturaR = Number(prompt("Dame la altura:"));
+
+                let areaR = (baseR * alturaR);
+                console.log("El area del rectámgulo es: " + areaR);
+                break;
+            
+            case 3:
+                let radio = Number(prompt("Dame el radio:"));
+                const PI = 3.1416;
+
+                let areaC = PI * (radio**2);
+                console.log("El area del rectámgulo es: " + areaC);
+                break;
+            case 4:
+                console.log("Has salido");
+                break;
+            
+            default:
+                console.log("Opción no válida. Intenta de nuevo.");
+        }
+            
+    }while(menu !== 4);
+}
+
+function letra_dni() {
+    const letras = ["T","R","W","A","G","M","Y","F","P","D",
+                    "X","B","N","J","Z","S","Q","V","H","L","C","K","E"];
+    
+    let dni = Number(prompt("Introduce tu número de DNI (sin letra):"));
+    
+    if(isNaN(dni) || dni < 0 || dni > 99999999){
+        alert("Número no válido. Debe estar entre 0 y 99999999");
+        return;
+    }
+
+    let numero = dni % 23;
+    let letra = letras[numero];
+
+    alert("Tu DNI completo es: " + dni + letra);
+}
+
+
+
+   
+        
+   
+
