@@ -85,7 +85,7 @@ function menu_3(){
     let max = 0;
     let min = Infinity;
     let suma = 0;
-    let vueltas;
+    let vueltas = 0;
     do{
        opt = prompt("Que quieres hacer?"
             + "\n a. Introducir nuevo número"
@@ -133,4 +133,153 @@ function menu_3(){
                 break;
         }
     }while(opt != "e");
+}
+
+
+function notas_aleatorias(){
+    let nota = Math.floor(Number(Math.random() * 10));
+
+    if(nota >= 0 && nota <5){
+        console.log(nota + ": Suspenso");
+    }else if(nota === 5){
+        console.log(nota + ": Suficiente");
+    }else if(nota === 6){
+        console.log(nota + ": Bien");
+    }else if(nota >= 7 && nota < 9){
+        console.log(nota + ": Notable");
+    }else if(nota >= 9 && nota <= 10){
+        console.log(nota + ": Sobresaliente");
+    }else{
+        console.error("Hubo un error con el random");
+    }
+}
+
+
+/*function binario_decimal(){
+    let binario = prompt("Dime tu binario");
+
+    let decimal = parseInt(binario, 2);
+
+    console.log("El binario " + binario + " equivale al decimal " + decimal);
+}*/
+
+function binario_decimal(){
+    let binario = prompt("Dime tu binario");
+    let decimal = 0;
+    let potencia = 0;
+    for(let i = binario.length - 1; i >= 0; i--){
+        if(binario[i] == 1){
+            decimal += Math.pow(2, potencia);
+        }
+        potencia++;
+    }
+
+    console.log("El binario " + binario + " equivale al decimal " + decimal);
+}
+
+function binario_decimal2(){
+    let binario = prompt("Dime tu numero");
+    let decimal = 0;
+    for(let i = 0; i < binario.length, i++){
+        if(binario[i] == 1){
+            decimal += Math.pow() 
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Simulacro examen, contraseña
+
+const palabras = "abcdefghijklmnopqrstuvwxyz";
+const caracteres = "1234567890()/=*#?";
+
+function generarContrasena(fuerte) {
+  // Pedimos longitud hasta recibir un entero válido mayor que 0
+  let entrada;
+  let n;
+  do {
+    entrada = prompt("Introduce el número de caracteres para la contraseña (entero > 0):");
+    if (entrada === null) return null; // si el usuario cancela
+    n = parseInt(entrada, 10);
+  } while (isNaN(n) || n <= 0);
+
+  // función auxiliar para elegir un carácter aleatorio de una cadena
+  const aleatorioDe = (str) => str.charAt(Math.floor(Math.random() * str.length));
+
+  // función auxiliar para barajar un array (Fisher–Yates)
+  const mezclar = (arr) => {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  };
+
+  if (!fuerte) {
+    // Débil: solo palabras (letras)
+    let pass = "";
+    for (let i = 0; i < n; i++) pass += aleatorioDe(palabras);
+    return pass;
+  } else {
+    // Fuerte: debe contener palabra (letra), número y caracteres extraños
+    // Aseguramos al menos un carácter de cada tipo cuando sea posible
+    const letras = palabras;
+    const extras = caracteres;
+    const todo = letras + extras;
+
+    const resultado = [];
+
+    // Si la longitud permite, añadimos al menos una letra y al menos un extra
+    if (n >= 1) resultado.push(aleatorioDe(letras));
+    if (n >= 2) resultado.push(aleatorioDe(extras));
+
+    // Rellenamos el resto con caracteres aleatorios de la unión
+    while (resultado.length < n) resultado.push(aleatorioDe(todo));
+
+    // Barajamos para que los tipos no queden siempre al inicio
+    console.log(mezclar(resultado).join(""));
+  }
 }
