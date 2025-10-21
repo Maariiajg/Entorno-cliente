@@ -4,23 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="script.js"></script>
-    <title>Boletin 1</title>
+    <title>Document</title>
 </head>
-<body>
-    <h1>Boletin 1</h1>
-    <div class="ej">
-        <h2>Ejercicio 1</h2>
-        <button onclick="ej1()">Pulsa</button>
-    </div>
+<body id = "">
 
-    <div class="ej">
-        <h2>Ejercicio 2</h2>
-        <form>
-            <label for="email">Email:</label>
-            <input id="email" type="text"/>
-        </form>
-        <button onclick="ej2()">Validar datos</button>
-    </div>
+    <h1>Boletín 1</h1>
+    <h2>Ejercicio 1</h2>
+    <button onclick="ej1()">Ejercicio 1</button>
+    <h2>Ejercicio 2</h2>
+    <form>
+        <label for="email"> Email: </label>
+        <input id="email" type="text"/>
+        <p id="ok" style="color: green"></p>
+        <p id="error" style="color: red"></p>
+    </form>
+    <button onclick="valida_form()">Validar datos</button>
     
 </body>
 </html>
