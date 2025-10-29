@@ -34,6 +34,24 @@ function valida_form(){
     }
 }
 
+function ej3(){
+    let ventanaNueva = window.open("https:www.google.es", "mi ventana");
+    ventanaNueva?.document.write("HOLA");
+} //No se puede el ejercicio porque es demasiado invasivo
+
+
+function redirect_to(){
+    const regexp = new RegExp("^https:\/\/");
+    const url = $inputValue("url"); 
+    if(regexp.test(url)){
+        window.location.href = url;
+    }else{
+        $writeNode("error", "Introduce una URL valida") //Aqui tambien escribo
+        setTimeout(() => $writeNode("error",""), 5000);
+    }
+    window.location.href = url;
+}
+
 //Helpers (comunes para todo el boletín)
 function $inputValue(id: string) : string{
     const input = document.getElementById(id) as HTMLInputElement; //Lectura

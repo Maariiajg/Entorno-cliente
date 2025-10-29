@@ -30,6 +30,22 @@ function valida_form() {
         $writeNode("error", "El email no cumple la expresion"); //Aqui tambien escribo
     }
 }
+function ej3() {
+    var ventanaNueva = window.open("https:www.google.es", "mi ventana");
+    ventanaNueva === null || ventanaNueva === void 0 ? void 0 : ventanaNueva.document.write("HOLA");
+} //No se puede el ejercicio porque es demasiado invasivo
+function redirect_to() {
+    var regexp = new RegExp("^https:\/\/");
+    var url = $inputValue("url");
+    if (regexp.test(url)) {
+        window.location.href = url;
+    }
+    else {
+        $writeNode("error", "Introduce una URL valida"); //Aqui tambien escribo
+        setTimeout(function () { return $writeNode("error", ""); }, 5000);
+    }
+    window.location.href = url;
+}
 //Helpers (comunes para todo el boletín)
 function $inputValue(id) {
     var input = document.getElementById(id); //Lectura
