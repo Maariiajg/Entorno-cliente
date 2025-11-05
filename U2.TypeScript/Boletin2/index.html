@@ -1,31 +1,95 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="script.js"></script>
-    <title>Document</title>
+    <title>Ejercicio DOM y BOM</title>
+    <script defer src="script.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            color: black;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        button {
+            margin: 5px;
+            padding: 5px 10px;
+        }
+        ol {
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
     <h1 id="titulo">Hola Mundo</h1>
-    <button onclick="cambiar_titulo()">Cambiar titulo</button>
-    
+    <button onclick="cambiar_titulo()">Cambiar título</button>
+
     <h1>Modo oscuro</h1>
     <button onclick="cambiar_fondo()">Cambiar fondo</button>
-    
+
     <h1>Analiza edad</h1>
-    <form>
+    <form onsubmit="event.preventDefault(); analiza_edad();">
         <input id="edad" placeholder="34" type="number"/>
+        <button type="submit">Enviar edad</button>
     </form>
     <ol id="resultado"></ol>
-    <button onclick="analiza_edad()">Enviar edad</button>
 
-    <h1>Mini app</h1>
-    <form>
-        <input id="nombre" type="text"/>
-    </form>
+    <h1>Saludo</h1>
+    <button onclick="cambiar_nombre()">Cambiar nombre</button>
     <p id="saludo"></p>
-    <button onclick="saludar()">Saludar</button>
+    <form>
+        <select id="color" onchange="cambiar_color()">
+            <option value="">Selecciona color</option>
+            <option value="red">Rojo</option>
+            <option value="green">Verde</option>
+            <option value="blue">Azul</option>
+            <option value="yellow">Amarillo</option>
+        </select>
+    </form>
 
+    <h1>Info Navegador</h1>
+    <p>Selecciona la opción que deseas consultar: </p>
+    <ol type="a">
+        <li>El idioma del navegador</li>
+        <li>El nombre del navegador</li>
+        <li>¿Están habilitadas las cookies?</li>
+        <li>Tamaño (alto y ancho) de la pantalla</li>
+    </ol>
+    <form onsubmit="event.preventDefault(); info_navegador();">
+        <input id="option" type="text" placeholder="a, b, c o d"/>
+        <button type="submit">Mostrar info</button>
+    </form>
+
+    <h1>Mini navegador</h1>
+    <form onsubmit="event.preventDefault(); navegar();">
+        <input type="text" id="url" placeholder="www.ejemplo.com"/>
+        <button type="submit">Ir</button>
+    </form>
+    <button onclick="window.history.back()">← Atrás</button>
+    <button onclick="window.history.forward()">→ Adelante</button>
+    <button onclick="window.location.reload()">Recargar</button>
+
+    <h1>Reloj digital</h1>
+    <p id="reloj"></p>
+
+    <h1>Lista de la compra</h1>
+    <ol type="1" id="shopping-list">
+        <li>Huevos</li>
+        <li>Pan</li>
+        <li>Leche</li>
+        <li>Arroz</li>
+    </ol>
+    <div id="controles">
+        <button onclick="count_elements()">Contar elementos</button>
+        <button onclick="add_element()">Añadir producto</button>
+        <button onclick="show_first_last_element()">Mostrar 1º y Último</button>
+        <button onclick="duplicate_element()">Duplicar producto</button>
+        <button onclick="edit_element()">Editar producto</button>
+        <button onclick="show_elements()">Mostrar productos</button>
+    </div>
 </body>
 </html>

@@ -1,94 +1,198 @@
-function cambiar_titulo(){
-    let titulo: string = prompt("Introduce un nuevo titulo: ") as string;
-    let nodoTitulo: HTMLHeadingElement = document.getElementById("titulo") as HTMLHeadingElement;
-    nodoTitulo.textContent = titulo; 
+// ============ 1. Cambiar título ============
+function cambiar_titulo(): void {
+    const titulo: string | null = prompt("Introduce un nuevo título:");
+    if (titulo) {
+        const nodoTitulo = document.getElementById("titulo") as HTMLHeadingElement;
+        nodoTitulo.textContent = titulo;
+    }
 }
 
-function cambiar_fondo(){
-    //Por defecto el DOM ya tiene un atributo que representa el body
-    let body: HTMLBodyElement = document.body as HTMLBodyElement;
-
-    if(body.style.backgroundColor == "white"){
-        body.style.backgroundColor = "black";
-        body.style.color = "white";
-    }else{
+// ============ 2. Cambiar fondo ============
+function cambiar_fondo(): void {
+    const body = document.body as HTMLBodyElement;
+    if (body.style.backgroundColor === "black") {
         body.style.backgroundColor = "white";
         body.style.color = "black";
+    } else {
+        body.style.backgroundColor = "black";
+        body.style.color = "white";
     }
-
 }
 
-function analiza_edad(){
+// ============ 3. Analiza edad ============
+function analiza_edad(): void {
+    const input = document.getElementById("edad") as HTMLInputElement;
+    const edad: number = Number(input.value);
 
-    //Recojo el valor numerico desde el input con la edad del usuario
-    let input: HTMLInputElement = document.getElementById("edad") as HTMLInputElement;
-    let edad: number = Number(input.value);
-    console.log(edad);
+    if (isNaN(edad) || edad < 0) {
+        alert("Introduce una edad válida");
+        return;
+    }
 
-    //Creo el nodo <ol> raíz que contendra los elementos de la lista y modifico su estilo
-    let lista: HTMLOListElement = document.getElementById("resultado") as HTMLOListElement;
-    lista.innerHTML ="";
+    const lista = document.getElementById("resultado") as HTMLOListElement;
+    lista.innerHTML = "";
     lista.style.fontWeight = "bold";
     lista.style.color = "green";
     lista.type = "a";
 
-    //a. Compruebo si es mayor o menor de edad
-    let mayorMenor: HTMLLIElement = document.createElement("li") as HTMLLIElement;
-    mayorMenor.textContent = edad > 18? "Eres mayor" : "Eres menor";
+    // a) Mayor o menor
+    const mayorMenor = document.createElement("li") as HTMLLIElement;
+    mayorMenor.textContent = edad >= 18 ? "Eres mayor de edad" : "Eres menor de edad";
 
-    //b. Compruebo si la edad es o no par
-    let parImpar: HTMLLIElement = document.createElement("li") as HTMLLIElement;
-    parImpar.textContent = edad %2 == 0? "La edad es par" : "La edad es impar";
+    // b) Par o impar
+    const parImpar = document.createElement("li") as HTMLLIElement;
+    parImpar.textContent = edad % 2 === 0 ? "Tu edad es par" : "Tu edad es impar";
 
-    //c. Calcular divisores de la edad
-    let divisores: string = "";
-
-    for(let i = 1; i <= edad; i++){
-        if(edad%i== 0){
-            divisores += i + ", ";
-        }
+    // c) Divisores
+    const divisores: number[] = [];
+    for (let i = 1; i <= edad; i++) {
+        if (edad % i === 0) divisores.push(i);
     }
+    const listaDivisores = document.createElement("li") as HTMLLIElement;
+    listaDivisores.textContent = `Los divisores de tu edad son: ${divisores.join(", ")}`;
 
-    divisores = divisores.substring(0, divisores.length - 2); //Por culpa de Juan Antonio (M. Elite)
+    // d) Clasificación por edad
+    let rangoEdad = "";
+    if (edad < 15) rangoEdad = "Niño";
+    else if (edad < 30) rangoEdad = "Joven";
+    else if (edad < 60) rangoEdad = "Adulto";
+    else rangoEdad = "Mayor";
 
-    let listaDivisores: HTMLLIElement = document.createElement("li") as HTMLLIElement;
-    listaDivisores.textContent = divisores;
+    const edadTexto = document.createElement("li") as HTMLLIElement;
+    edadTexto.textContent = `Según tu edad eres: ${rangoEdad}`;
 
-    //d. Clasifica edad
-    let rangoEdad ="";
-    switch(true){
-        case edad >= 0 && edad < 15:
-            rangoEdad = "Niño";
-            break;
-        case edad >= 15 && edad < 30:
-            rangoEdad = "Joven";
-            break;
-        case edad >= 30 && edad < 60:
-            rangoEdad = "Adulto";
-            break;
-        case edad >= 60:
-            rangoEdad = "Mayor";
-            break;
-        default:
-            console.error("Edad no valida");
-    }
-
-    let edadTexto: HTMLLIElement = document.createElement("li") as HTMLLIElement;
-    edadTexto.textContent = rangoEdad;
-
-    //Añado cada elemento, a, b, c....
     lista.appendChild(mayorMenor);
     lista.appendChild(parImpar);
     lista.appendChild(listaDivisores);
     lista.appendChild(edadTexto);
 }
 
+// ============ 4. Saludo y color ============
+function cambiar_nombre(): void {
+    const name: string | null = prompt("Introduce tu nombre:");
+    if (name) {
+        const saludo = document.getElementById("saludo") as HTMLParagraphElement;
+        saludo.textContent = `Hola, ${name}!`;
+    }
+}
 
+function cambiar_color(): void {
+    const select = document.getElementById("color") as HTMLSelectElement;
+    const color = select.value;
+    const saludo = document.getElementById("saludo") as HTMLParagraphElement;
+    saludo.style.color = color;
+}
 
-/*function saludar(){
-    let input: HTMLInputElement = document.getElementById("nombre") as HTMLInputElement;
-    let nombre = input;
+// ============ 5. Información del navegador ============
+function info_navegador(): void {
+    const option = (document.getElementById("option") as HTMLInputElement).value.toLowerCase();
 
-    let lista: HTMLParagraphElement = document.getElementById("resultado") as HTMLParagraphElement;
-    lista.appendChild("Hola, " + nombre);
-}*/
+    switch (option) {
+        case "a":
+            console.log("Idioma del navegador: " + navigator.language);
+            break;
+        case "b":
+            console.log("Nombre del navegador: " + navigator.userAgent);
+            break;
+        case "c":
+            console.log("Cookies habilitadas: " + (navigator.cookieEnabled ? "Sí" : "No"));
+            break;
+        case "d":
+            console.log("Tamaño de pantalla: " + window.innerWidth + "x" + window.innerHeight);
+            break;
+        default:
+            console.error("Opción no válida. Usa a, b, c o d.");
+    }
+}
+
+// ============ 6. Mini navegador ============
+function navegar(): void {
+    const inputUrl = document.getElementById("url") as HTMLInputElement;
+    let url = inputUrl.value.trim();
+    if (!url) {
+        alert("Introduce una URL");
+        return;
+    }
+    if (!url.startsWith("http")) {
+        url = "https://" + url;
+    }
+    window.location.href = url;
+}
+
+// ============ 7. Reloj digital ============
+function actualizar_reloj(): void {
+    const now = new Date();
+    const hora = now.toLocaleTimeString();
+    const reloj = document.getElementById("reloj") as HTMLParagraphElement;
+    reloj.textContent = hora;
+}
+window.onload = () => setInterval(actualizar_reloj, 1000);
+
+// ============ 8. Lista de la compra ============
+function count_elements(): void {
+    const list = document.getElementById("shopping-list") as HTMLOListElement;
+    console.log(`Hay ${list.childElementCount} elementos.`);
+}
+
+function add_element(): void {
+    const text: string | null = prompt("Introduce el nuevo producto:");
+    if (text) {
+        const list = document.getElementById("shopping-list") as HTMLOListElement;
+        const new_element = document.createElement("li") as HTMLLIElement;
+        new_element.textContent = text;
+        list.appendChild(new_element);
+    }
+}
+
+function show_first_last_element(): void {
+    const list = document.getElementById("shopping-list") as HTMLOListElement;
+    console.log("Primer elemento:", list.firstElementChild?.textContent);
+    console.log("Último elemento:", list.lastElementChild?.textContent);
+}
+
+function duplicate_element(): void {
+    const list = document.getElementById("shopping-list") as HTMLOListElement;
+    const id: number = Number(prompt("Número del producto a duplicar:"));
+    if (isNaN(id) || id < 1 || id > list.childElementCount) return;
+
+    const original = list.children[id - 1] as HTMLLIElement;
+    const dupl = document.createElement("li") as HTMLLIElement;
+    dupl.textContent = original.textContent;
+    list.appendChild(dupl);
+}
+
+function edit_element(): void {
+    const list = document.getElementById("shopping-list") as HTMLOListElement;
+    const id: number = Number(prompt("Número del producto a editar:"));
+    if (isNaN(id) || id < 1 || id > list.childElementCount) return;
+
+    const nuevo = prompt("Nuevo valor del producto:");
+    if (nuevo) (list.children[id - 1] as HTMLLIElement).textContent = nuevo;
+}
+
+function delete_element(): void {
+    const list = document.getElementById("shopping-list") as HTMLOListElement;
+    const id: number = Number(prompt("Número del producto a eliminar:"));
+    if (isNaN(id) || id < 1 || id > list.childElementCount) return;
+    list.removeChild(list.children[id - 1]);
+}
+
+function show_elements(): void {
+    const list = document.getElementById("shopping-list") as HTMLOListElement;
+    [...list.children].forEach((el, i) => {
+        console.log(`${i + 1}. ${(el as HTMLLIElement).textContent}`);
+    });
+}
+
+function sort_elements(): void {
+    const list = document.getElementById("shopping-list") as HTMLOListElement;
+    const items: string[] = [...list.children].map(el => (el as HTMLLIElement).textContent || "");
+    items.sort((a, b) => a.localeCompare(b));
+    list.innerHTML = "";
+    items.forEach(text => {
+        const li = document.createElement("li");
+        li.textContent = text;
+        list.appendChild(li);
+    });
+    console.log("Lista ordenada alfabéticamente.");
+}
