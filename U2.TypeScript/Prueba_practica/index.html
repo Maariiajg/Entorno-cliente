@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <h1>Formulario</h1>
+    <form>
+        <label for="nombre">Nombre:</label>
+        <input id="nombre" type="text"/> <br>
+        <label for="apellidos">Apellidos:</label>
+        <input id="apellidos" type="text"/> <br>
+        <label for="edad">Edad:</label>
+        <input id="edad" type="number"/> <br>
+        <label for="telefono">Telefono:</label>
+        <input id="telefono" type="text"/> <br>
+        <label for="fecha_nacimiento">Fecha de nacimiento:</label>
+        <input id="fecha_nacimiento" type="date"/> <br>
+        <label for="url">URL:</label>
+        <input id="url" type="text"/> <br>
+        
+        <select id="acciones">
+            <option value="nombre_invertido">Nombre al revés, en mayusculas y con fecha</option>
+            <option value="redirigir_busqueda">Redirigir busqueda URL</option>
+            <option value="mostrar_edad">Mostrar edad</option>
+            <option value="almacenar_datos">Almacenar los datos en cookies</option>
+        </select>
+        <br>
+        <div id="hueco" style="background-color: grey;">
+            Sin contenido
+        </div>
+    </form>
+    <button onclick="formulario()" style="text-align: right;">Enviar formulario</button>
+</body>
+</html>
