@@ -1,5 +1,5 @@
 
-function formulario(){
+function formulario(): void{
     //recogemos los datos
     let nombre: HTMLInputElement = document.getElementById("nombre") as HTMLInputElement;
     let apellidos: HTMLInputElement = document.getElementById("apellidos") as HTMLInputElement;
