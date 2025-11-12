@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto TypeScript</title>
+    <script src="script.js"></script>
+</head>
+<body>
+    <form>
+        <label for="equipo_local">Equipo local:</label>
+        <select id="equipo_local">
+            <option value="realMadrid">Real Madrid CF</option>
+            <option value="barcelona">FC Barcelona</option>
+            <option value="villarreal">Villarreal CF</option>
+            <option value="atleticoMadrid">Atlético Madrid</option>
+            <option value="betis">Real Betis Balompié</option>
+            <option value="espanyol">RCD Espanyol</option>
+            <option value="bilbao">Altetic Bilbao</option>
+            <option value="sevilla">Sevilla FC</option>
+        </select> <br>
+        <label for="equipo_visitante">Equipo visitante:</label>
+        <select id="equipo_visitante">
+            <option value="realmadridcf">Real Madrid CF</option>
+            <option value="fcbarcelona">FC Barcelona</option>
+            <option value="villarrealcf">Villarreal CF</option>
+            <option value="atleticomadrid">Atlético Madrid</option>
+            <option value="realbetisbalompie">Real Betis Balompie</option>
+            <option value="rcdespanyol">RCD Espanyol</option>
+            <option value="atleticbilbao">Altetic Bilbao</option>
+            <option value="sevillafc">Sevilla FC</option>
+        </select><br>
+
+        <label for="goles_local">Goles del equipo local:</label>
+        <input id="goles_local" type="number"><br>
+        <label for="goles_visitante">Goles del equipo visitante</label>
+        <input id="goles_visitante" type="number">
+    </form>
+    <div id="error"></div>
+    <button onclick="añadir_partido()"> Añadir partido</button>
+</body>
+</html>
