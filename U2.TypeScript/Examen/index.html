@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen TypeScript</title>
+    <script src="script.js"></script>
+</head>
+<body>
+    <h1 id="mostrarNombre">Bienvenido</h1>
+    <form>
+        <label for="id">ID:</label>
+        <input id="id" type="number"><br>
+
+        <label for="descripcion">Descripcion:</label>
+        <input id="descripcion" type="tex"><br>
+
+        <label for="tipos">Selecciona uno:</label>
+        <select id="tipos">
+            <option value="incidencia">Incidencia</option>
+            <option value="tarea">Tarea</option>
+            <option value="evento">Evento</option>
+        </select><br>
+    </form>
+    <div id="resultados"></div>
+    <button onclick="crearTarjeta()">Enviar</button>
+    <button onclick="limpiar()">Limpiar tareas</button>
+</body>
+</html>
