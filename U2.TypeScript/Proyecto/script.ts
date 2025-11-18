@@ -1,91 +1,176 @@
-    const posNombre = 0;
-    const posPuntos = 1;
-    const posPartidosJugados = 2;
-    const posPartidosGanados = 3;
-    const posPartidosEmpetados = 4;
-    const posPartidosPerdidos = 5;
-    const posGolesFavor = 6;
-    const posGolesContra = 7;
+const posNombre = 0;
+const posPuntos = 1;
+const posPartidosJugados = 2;
+const posPartidosGanados = 3;
+const posPartidosEmpetados = 4;
+const posPartidosPerdidos = 5;
+const posGolesFavor = 6;
+const posGolesContra = 7;
+const posDiferencia = 8; // Nueva columna: diferencia de goles. Es uno de los requisitos de desampate, 
+                        //si tiene muchoas mas goles en contra que a favor tendrá un resultado negativo por lo que bajará en la clasificación
 
-function añadir_partido(){
+// Matriz global para meter los resultados acumulados, inicializamos todo a 0
+let matrizDeEquipos: any[][] = [
+    ["Real Madrid CF", 0, 0, 0, 0, 0, 0, 0, 0],
+    ["FC Barcelona", 0, 0, 0, 0, 0, 0, 0, 0],
+    ["Villarreal CF", 0, 0, 0, 0, 0, 0, 0, 0],
+    ["Atlético Madrid", 0, 0, 0, 0, 0, 0, 0, 0],
+    ["Real Betis Balompié", 0, 0, 0, 0, 0, 0, 0, 0],
+    ["RCD Espanyol", 0, 0, 0, 0, 0, 0, 0, 0],
+    ["Altetic Bilbao", 0, 0, 0, 0, 0, 0, 0, 0],
+    ["Sevilla FC", 0, 0, 0, 0, 0, 0, 0, 0]
+];
 
-
-    let matrizDeEquipos: any[][] =[
-        ["Real Madrid CF", 1, 0, 0, 0, 0, 0, 0],
-        ["FC Barcelona", 1, 0, 0, 0, 0, 0, 0],
-        ["Villarreal CF", 1, 0, 0, 0, 0, 0, 0],
-        ["Atlético Madrid", 1, 0, 0, 0, 0, 0, 0],
-        ["Real Betis Balompié", 1, 0, 0, 0, 0, 0, 0],
-        ["RCD Espanyol", 1, 0, 0, 0, 0, 0, 0],
-        ["Altetic Bilbao", 1, 0, 0, 0, 0, 0, 0],
-        ["Sevilla FC", 1, 0, 0, 0, 0, 0, 0]
-    ] 
+function añadir_partido() {
     sumar_partido(matrizDeEquipos);
-    //sumar_puntos(matrizDePartidos);
-    //sumar_goles_favor(matrizDePartidos);
-    //sumar_goles_contra(matrizDePartidos);
-
+    sumar_puntos(matrizDeEquipos);
+    sumar_goles_favor(matrizDeEquipos);
+    sumar_goles_contra(matrizDeEquipos);
+    actualizar_diferencias(matrizDeEquipos); 
     ordenar_array(matrizDeEquipos);
-   
 }
 
-function ordenar_array(matrizDeEquipos: any[][]){
-    // Ordenar según los criterios
+//Calcular y guardar diferencia de goles
+function actualizar_diferencias(matrizDeEquipos: any[][]) {
+    for (let i = 0; i < matrizDeEquipos.length; i++) {
+        matrizDeEquipos[i][posDiferencia] = matrizDeEquipos[i][posGolesFavor] - matrizDeEquipos[i][posGolesContra];
+    }
+}
+
+// Función para ordenar la tabla de clasificación
+function ordenar_array(matrizDeEquipos: any[][]) {
     matrizDeEquipos.sort((a, b) => {
-        const puntosA = a[posPuntos];
-        const puntosB = b[posPuntos];
 
-        const diferenciaA = a[posGolesFavor] - a[posGolesContra];
-        const diferenciaB = b[posGolesFavor] - b[posGolesContra];
+        //Puntos (desc)
+        const diffPuntos = b[posPuntos] - a[posPuntos];
+        if (diffPuntos !== 0) return diffPuntos;
 
-        const golesFavorA = a[posGolesFavor];
-        const golesFavorB = b[posGolesFavor];
+        //Partidos ganados (desc)
+        const diffGanados = b[posPartidosGanados] - a[posPartidosGanados];
+        if (diffGanados !== 0) return diffGanados;
 
-        // Comparar puntos
-        if (puntosB !== puntosA) return puntosB - puntosA;
+        //Diferencia de goles (desc)
+        const diffDiferencia = b[posDiferencia] - a[posDiferencia];
+        if (diffDiferencia !== 0) return diffDiferencia;
 
-        // Si tienen los mismos puntos, comparar diferencia de goles
-        if (diferenciaB !== diferenciaA) return diferenciaB - diferenciaA;
+        //Goles a favor (desc)
+        const diffGolesFavor = b[posGolesFavor] - a[posGolesFavor];
+        if (diffGolesFavor !== 0) return diffGolesFavor;
 
-        // Si también tienen la misma diferencia, comparar goles a favor
-        return golesFavorB - golesFavorA;
+        //Goles en contra (menos es mejor, asc)
+        const diffGolesContra = a[posGolesContra] - b[posGolesContra];
+        if (diffGolesContra !== 0) return diffGolesContra;
+
+        //Menos derrotas (asc)
+        const diffPerdidas = a[posPartidosPerdidos] - b[posPartidosPerdidos];
+        if (diffPerdidas !== 0) return diffPerdidas;
+
+        //en caso de que todo lo demas sea empate debe devolver algo, por lo tanto le devolvemos 0
+        return 0;
     });
 
     console.log("Clasificación ordenada:");
-    console.table(matrizDeEquipos);
+    console.table(matrizDeEquipos);//mostramos en formato tabla por consola
 }
 
-function sumar_partido(matrizDeEquipos: any[][]){
-    let equipoLocal: HTMLInputElement = document.getElementById("equipo_local") as HTMLInputElement;
-    let equipoVisitante: HTMLInputElement = document.getElementById("equipo_visitante") as HTMLInputElement;
-    let error: HTMLDivElement = document.getElementById("error") as HTMLDivElement;
-    const local = equipoLocal.value.trim().toLowerCase();
-    const visitante = equipoVisitante.value.trim().toLowerCase();
-    //comprobar q equipos no sean iguales
-    if (equipoLocal.value === equipoVisitante.value){
+
+// Función para actualizar partidos jugados, ganados, empatados, perdidos
+function sumar_partido(matrizDeEquipos: any[][]) {
+    let equipoLocal = document.getElementById("equipo_local") as HTMLInputElement;
+    let equipoVisitante = document.getElementById("equipo_visitante") as HTMLInputElement;
+    let golesLocal = parseInt((document.getElementById("goles_local") as HTMLInputElement).value);
+    let golesVisitante = parseInt((document.getElementById("goles_visitante") as HTMLInputElement).value);
+    let error = document.getElementById("error") as HTMLDivElement;
+    //comprueba que los dos equipos no sean el mismo
+    if (equipoLocal.value === equipoVisitante.value) {
         error.textContent = "El equipo local y el visitante no pueden ser el mismo";
-    }else {
+        return;
+    } else {
         error.textContent = "";
     }
 
-    for(let i = 0; i < matrizDeEquipos.length; i++){
-        let nombreEquipo = matrizDeEquipos[i][posNombre].trim().toLowerCase();
-
-        if(nombreEquipo === local || nombreEquipo === visitante){
+    for (let i = 0; i < matrizDeEquipos.length; i++) {
+        let nombreEquipo = matrizDeEquipos[i][posNombre];
+        //sumar el partido jugado a ambos equipos
+        if (nombreEquipo === equipoLocal.value || nombreEquipo === equipoVisitante.value) {
             matrizDeEquipos[i][posPartidosJugados] += 1;
         }
+
+        //comparando cual de los dos equipos sacó mas puntos sumamos partido, ganada, empatado o perdido
+        if (nombreEquipo === equipoLocal.value) {  
+            if (golesLocal > golesVisitante) {
+                matrizDeEquipos[i][posPartidosGanados] += 1;
+            } else if (golesLocal === golesVisitante) {
+                matrizDeEquipos[i][posPartidosEmpetados] += 1;
+            } else {
+                matrizDeEquipos[i][posPartidosPerdidos] += 1;
+            }
+        }
+
+        if (nombreEquipo === equipoVisitante.value) {
+            if (golesVisitante > golesLocal) {
+                matrizDeEquipos[i][posPartidosGanados] += 1;
+            } else if (golesVisitante === golesLocal) {
+                matrizDeEquipos[i][posPartidosEmpetados] += 1;
+            } else {
+                matrizDeEquipos[i][posPartidosPerdidos] += 1;
+            }
+        }
     }
-    //no va bien
+    actualizar_diferencias(matrizDeEquipos); 
+    ordenar_array(matrizDeEquipos);
 }
 
-function sumar_puntos(matrizDeEquipos: any[][]){
+// Función para sumar puntos
+function sumar_puntos(matrizDeEquipos: any[][]) {
+    for (let i = 0; i < matrizDeEquipos.length; i++) {
+        //por cada equipo[i] en la posición puntos meetemos la suma de los partidos 
+        //ganados (los miramos en el propio array y los multiplicamos por 3) y de los 
+        //partidos empatados(los multiplicamos por 1)
+        matrizDeEquipos[i][posPuntos] = matrizDeEquipos[i][posPartidosGanados] * 3 + matrizDeEquipos[i][posPartidosEmpetados];
+    }
 
+    actualizar_diferencias(matrizDeEquipos); 
+    ordenar_array(matrizDeEquipos);
 }
 
-function sumar_goles_favor(matrizDeEquipos: any[][]){
+// Función para sumar goles a favor
+function sumar_goles_favor(matrizDeEquipos: any[][]) {
+    let golesLocal = parseInt((document.getElementById("goles_local") as HTMLInputElement).value);
+    let golesVisitante = parseInt((document.getElementById("goles_visitante") as HTMLInputElement).value);
+    let equipoLocal = (document.getElementById("equipo_local") as HTMLInputElement).value;
+    let equipoVisitante = (document.getElementById("equipo_visitante") as HTMLInputElement).value;
 
+    //sumamos el numero de goles que marcaron a cada equipo independientemente de si ganan o pierden
+    for (let i = 0; i < matrizDeEquipos.length; i++) {
+        if (matrizDeEquipos[i][posNombre] === equipoLocal) { //asegurarse de que es el equipo local de este partido
+            matrizDeEquipos[i][posGolesFavor] += golesLocal; //sumar sus puntos
+        }
+        if (matrizDeEquipos[i][posNombre] === equipoVisitante) { //asegurarse de que es el equipo visitante de este partido
+            matrizDeEquipos[i][posGolesFavor] += golesVisitante; //sumar sus puntos
+        }
+    }
+
+    actualizar_diferencias(matrizDeEquipos); 
+    ordenar_array(matrizDeEquipos);
 }
 
-function sumar_goles_contra(matrizDeEquipos: any[][]){
+// Función para sumar goles en contra
+function sumar_goles_contra(matrizDeEquipos: any[][]) {
+    let golesLocal = parseInt((document.getElementById("goles_local") as HTMLInputElement).value);
+    let golesVisitante = parseInt((document.getElementById("goles_visitante") as HTMLInputElement).value);
+    let equipoLocal = (document.getElementById("equipo_local") as HTMLInputElement).value;
+    let equipoVisitante = (document.getElementById("equipo_visitante") as HTMLInputElement).value;
+    //ahora lo opuesto. Sumamos a cada equipo el numero de goles en contra, es decir, que le marcaron en este partido
+    for (let i = 0; i < matrizDeEquipos.length; i++) {
+        if (matrizDeEquipos[i][posNombre] === equipoLocal) {
+            matrizDeEquipos[i][posGolesContra] += golesVisitante;
+        }
+        if (matrizDeEquipos[i][posNombre] === equipoVisitante) {
+            matrizDeEquipos[i][posGolesContra] += golesLocal;
+        }
+    }
 
+    actualizar_diferencias(matrizDeEquipos); 
+    ordenar_array(matrizDeEquipos);
 }
