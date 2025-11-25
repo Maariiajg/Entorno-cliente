@@ -1,45 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyecto TypeScript</title>
+    <title>Clasificación Liga – TypeScript</title>
+    <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
 <body>
-    <form>
-        <label for="equipo_local">Equipo local:</label>
-        <select id="equipo_local">
-            <option value="Real Madrid CF">Real Madrid CF</option>
-            <option value="FC Barcelona">FC Barcelona</option>
-            <option value="Villarreal CF">Villarreal CF</option>
-            <option value="Atlético Madrid">Atlético Madrid</option>
-            <option value="Real Betis Balompié">Real Betis Balompié</option>
-            <option value="RCD Espanyol">RCD Espanyol</option>
-            <option value="Altetic Bilbao">Altetic Bilbao</option>
-            <option value="Sevilla FC">Sevilla FC</option>
-        </select> <br>
 
-        <label for="equipo_visitante">Equipo visitante:</label>
-        <select id="equipo_visitante">
-            <option value="Real Madrid CF">Real Madrid CF</option>
-            <option value="FC Barcelona">FC Barcelona</option>
-            <option value="Villarreal CF">Villarreal CF</option>
-            <option value="Atlético Madrid">Atlético Madrid</option>
-            <option value="Real Betis Balompié">Real Betis Balompié</option>
-            <option value="RCD Espanyol">RCD Espanyol</option>
-            <option value="Altetic Bilbao">Altetic Bilbao</option>
-            <option value="Sevilla FC">Sevilla FC</option>
-        </select><br>
+    <h1>Clasificación de Liga</h1>
 
-        <label for="goles_local">Goles del equipo local:</label>
-        <input id="goles_local" type="number"><br>
+    <table id="tabla">
+        <thead>
+            <tr>
+                <th>Equipo</th>
+                <th>Puntos</th>
+                <th>PJ</th>
+                <th>PG</th>
+                <th>PE</th>
+                <th>PP</th>
+                <th>GF</th>
+                <th>GC</th>
+                <th>DG</th>
+            </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+    </table>
 
-        <label for="goles_visitante">Goles del equipo visitante:</label>
-        <input id="goles_visitante" type="number">
+
+    <h2>Introducir resultado</h2>
+    <form id="formPartido">
+
+        <label>Equipo local:</label>
+        <select id="equipo_local"></select>
+
+        <label>Equipo visitante:</label>
+        <select id="equipo_visitante"></select>
+
+        <label>Goles local:</label>
+        <input id="goles_local" type="number" min="0">
+
+        <label>Goles visitante:</label>
+        <input id="goles_visitante" type="number" min="0">
+
+        <button type="submit">Añadir partido</button>
     </form>
 
-    <div id="error" style="color:red;"></div>
-    <button onclick="añadir_partido()">Añadir partido</button>
+    <div id="error" class="error"></div>
+
 </body>
 </html>
